@@ -59,7 +59,8 @@ async def process_start_command(message: Message):
     await message.answer(
         LEXICON['/start'], disable_web_page_preview=True, protect_content=True
     )
-    await send_video(message, '1.mp4', reply_markup=create_inline_kb(1, 'continue_btn1'))
+    reply_markup=create_inline_kb(1, 'continue_btn1'), protect_content=True
+    )
 
 @router.callback_query(F.data == 'continue_btn1')
 async def process_continue_btn1_callback(callback: CallbackQuery):
@@ -81,7 +82,6 @@ async def process_continue_btn2_callback(callback: CallbackQuery):
         LEXICON['/continue2'],
         reply_markup=create_inline_kb(1, 'continue_btn3'), protect_content=True
     )
-    await send_video(callback.message, '2.mp4')
 
 
 @router.callback_query(F.data == 'continue_btn3')
