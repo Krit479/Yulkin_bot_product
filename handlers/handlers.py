@@ -57,9 +57,9 @@ async def process_start_command(message: Message):
     user_id = message.from_user.id
     logger.info('User %s started the bot', user_id)
     await message.answer(
-        LEXICON['/start'], disable_web_page_preview=True, protect_content=True
-    )
-    reply_markup=create_inline_kb(1, 'continue_btn1'), protect_content=True
+        LEXICON['/start'], disable_web_page_preview=True, protect_content=True)
+    await message.answer_photo(photo="photos/photo_2026-06-14_15-00-40.jpg",
+        reply_markup=create_inline_kb(1, 'continue_btn1'), protect_content=True
     )
 
 @router.callback_query(F.data == 'continue_btn1')
@@ -71,7 +71,6 @@ async def process_continue_btn1_callback(callback: CallbackQuery):
         LEXICON['/continue1'],
         reply_markup=create_inline_kb(1, 'continue_btn2'), protect_content=True
     )
-
 
 @router.callback_query(F.data == 'continue_btn2')
 async def process_continue_btn2_callback(callback: CallbackQuery):
