@@ -16,7 +16,13 @@ router = Router()
 logger = logging.getLogger(__name__)
 BASE_DIR = Path(__file__).resolve().parent.parent
 VIDEO_DIR = BASE_DIR / 'videos'
+PHOTO_DIR = BASE_DIR / 'photos'
 MAX_TELEGRAM_FILE_SIZE = 50 * 1024 * 1024
+
+
+def get_photo_file(file_name: str) -> FSInputFile:
+    return FSInputFile(str(PHOTO_DIR / file_name))
+
 
 async def send_video(message: Message, file_name: str, reply_markup=None):
     user_id = message.from_user.id
@@ -58,8 +64,10 @@ async def process_start_command(message: Message):
     logger.info('User %s started the bot', user_id)
     await message.answer(
         LEXICON['/start'], disable_web_page_preview=True, protect_content=True)
-    await message.answer_photo(photo="photos/photo_2026-06-14_15-00-40.jpg",
-        reply_markup=create_inline_kb(1, 'continue_btn1'), protect_content=True
+    await message.answer_photo(
+        photo=get_photo_file('photo_2026-06-14_15-00-40.jpg'),
+        reply_markup=create_inline_kb(1, 'continue_btn1'),
+        protect_content=True
     )
 
 @router.callback_query(F.data == 'continue_btn1')
@@ -69,8 +77,10 @@ async def process_continue_btn1_callback(callback: CallbackQuery):
     await callback.answer()
     await callback.message.answer(
         LEXICON['/continue1'], disable_web_page_preview=True, protect_content=True)
-    await message.answer_photo(photo="photos/photo_2026-06-14_15-01-32.jpg",
-        reply_markup=create_inline_kb(1, 'continue_btn2'), protect_content=True
+    await callback.message.answer_photo(
+        photo=get_photo_file('photo_2026-06-14_15-01-32.jpg'),
+        reply_markup=create_inline_kb(1, 'continue_btn2'),
+        protect_content=True
     )
 
 
