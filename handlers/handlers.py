@@ -91,7 +91,7 @@ async def process_continue_btn2_callback(callback: CallbackQuery):
     await callback.answer()
     await callback.message.answer(
         LEXICON['/continue2'],
-        reply_markup=create_inline_kb(1, continue_btn4='t.me/yulia_forward'),
+        reply_markup=create_inline_kb(1, 'continue_btn3', continue_btn4='t.me/yulia_forward'),
         protect_content=True
     )
 
