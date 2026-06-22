@@ -101,4 +101,6 @@ async def process_continue_btn3_callback(callback: CallbackQuery):
     user_id = callback.from_user.id
     logger.info('User %s pressed continue_btn3', user_id)
     await callback.answer()
-    await callback.message.answer(LEXICON['/continue3'], protect_content=True)
+    await callback.message.answer(LEXICON['/continue3'],
+    reply_markup=create_inline_kb(1, 'continue_btn4', continue_btn4='t.me/yulia_forward'),
+    protect_content=True)
